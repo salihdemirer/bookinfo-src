@@ -17,7 +17,7 @@
 require 'webrick'
 require 'json'
 require 'net/http'
-
+require 'socket'
 if ARGV.length < 1 then
     puts "usage: #{$PROGRAM_NAME} port"
     exit(-1)
@@ -57,6 +57,7 @@ end
 
 # TODO: provide details on different books.
 def get_book_details(id, headers)
+    hostname = Socket.gethostname
     if ENV['ENABLE_EXTERNAL_BOOK_SERVICE'] === 'true' then
       # the ISBN of one of Comedy of Errors on the Amazon
       # that has Shakespeare as the single author
@@ -73,7 +74,8 @@ def get_book_details(id, headers)
         'publisher' => 'PublisherA',
         'language' => 'English',
         'ISBN-10' => '1234567890',
-        'ISBN-13' => '123-1234567890'
+        'ISBN-13' => '123-1234567890',
+        'Hostname' => hostname
     }
 end
 
